@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ TechPulse | Premium Liquid Glass Suite</title>
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.12);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --header-bg: rgba(15, 23, 42, 0.9);
+            --accent-blue: #3b82f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            min-height: 100vh;
+            background-color: #e2e8f0;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(244, 63, 94, 0.2) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.25) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.15) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .filter-input {
+            display: none;
+        }
+
+        /* Responsive Header Setup */
+        header {
+            background-color: var(--header-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        /* Scrollable navigation tabs bar on tiny mobile displays */
+        .nav-tabs {
+            display: flex;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Prevents layout squeezing inside scrollable track */
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-label {
+            color: #94a3b8;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .scrape-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 50px;
+            width: 100%;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .news-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* MOBILE PRIMED NEWS CONTAINER CARD */
+        .news-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px) saturate(190%);
+            -webkit-backdrop-filter: blur(16px) saturate(190%);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            flex-direction: column; /* Vertically stack image and text elements on phone formats */
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+
+        /* Scaled Responsive Card Thumbnail Frame */
+        .news-image {
+            width: 100%;      /* Take full block width on mobile screens */
+            height: 150px;     
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+            flex-shrink: 0;
+        }
+
+        .news-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cat-badge {
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: white;
+        }
+
+        .badge-ai { background: linear-gradient(135deg, #8b5cf6, #6366f1); }
+        .badge-dev { background: linear-gradient(135deg, #10b981, #059669); }
+        .badge-hardware { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+        .badge-business { background: linear-gradient(135deg, #475569, #334155); }
+
+        .news-item a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 18px; /* Slightly scaled down text for sleek mobile display */
+            font-weight: 800;
+            line-height: 1.4;
+        }
+
+        .news-snippet {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            background: rgba(15, 23, 42, 0.04);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border-left: 3px solid rgba(15, 23, 42, 0.2);
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        /* CSS Engine Bindings */
+        #tab-all:checked ~ header label[for="tab-all"],
+        #tab-ai:checked ~ header label[for="tab-ai"],
+        #tab-dev:checked ~ header label[for="tab-dev"],
+        #tab-hardware:checked ~ header label[for="tab-hardware"],
+        #tab-business:checked ~ header label[for="tab-business"] {
+            background: #ffffff;
+            color: var(--text-main);
+        }
+
+        #tab-ai:checked ~ .container .news-item:not(.cat-ai),
+        #tab-dev:checked ~ .container .news-item:not(.cat-dev),
+        #tab-hardware:checked ~ .container .news-item:not(.cat-hardware),
+        #tab-business:checked ~ .container .news-item:not(.cat-business) {
+            display: none !important;
+        }
+
+        .empty-state {
+            text-align: center;
+            background: var(--glass-bg);
+            padding: 40px 20px;
+            border-radius: 16px;
+        }
+
+        form {
+            width: 100%;
+        }
+
+        /* -----------------------------------------
+           DESKTOP UPGRADES (Media Queries)
+           Restores the massive design layout on viewports wider than 768px
+        -------------------------------------------- */
+        @media (min-width: 768px) {
+            header {
+                flex-direction: row; /* Horizontal alignment layout */
+                padding: 15px 40px;
+                gap: 0;
+            }
+
+            .logo-section {
+                flex-direction: row;
+                gap: 25px;
+                width: auto;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .tab-label {
+                font-size: 13px;
+                padding: 6px 16px;
+            }
+
+            form {
+                width: auto;
+            }
+
+            .scrape-btn {
+                padding: 12px 26px;
+                font-size: 14px;
+                width: auto;
+            }
+
+            .container {
+                margin: 40px auto;
+                padding: 0 20px;
+            }
+
+            .news-item {
+                flex-direction: row; /* Sideways row positioning layout */
+                padding: 24px;
+                margin-bottom: 28px;
+                border-radius: 20px;
+                gap: 28px;
+            }
+
+            .news-item:hover {
+                transform: translateY(-8px);
+                background: rgba(255, 255, 255, 0.55);
+                box-shadow: 0 20px 45px rgba(31, 38, 135, 0.2);
+                border-color: rgba(255, 255, 255, 0.7);
+            }
+
+            .news-image {
+                width: 200px; /* Restores broad thumbnail blueprint geometry */
+                height: 130px;
+                border-radius: 14px;
+            }
+
+            .news-item a {
+                font-size: 22px;
+            }
+
+            .news-item a:hover {
+                color: var(--accent-blue);
+            }
+
+            .news-snippet {
+                font-size: 14px;
+                padding: 8px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <input type="radio" id="tab-all" name="cat-filter" class="filter-input" checked>
+    <input type="radio" id="tab-ai" name="cat-filter" class="filter-input">
+    <input type="radio" id="tab-dev" name="cat-filter" class="filter-input">
+    <input type="radio" id="tab-hardware" name="cat-filter" class="filter-input">
+    <input type="radio" id="tab-business" name="cat-filter" class="filter-input">
+
+    <header>
+        <div class="logo-section">
+            <div class="logo">⚡ MA TechPulse</div>
+            <div class="nav-tabs">
+                <label for="tab-all" class="tab-label">All Feed</label>
+                <label for="tab-ai" class="tab-label">AI</label>
+                <label for="tab-dev" class="tab-label">Dev</label>
+                <label for="tab-hardware" class="tab-label">Hardware</label>
+                <label for="tab-business" class="tab-label">Business</label>
+            </div>
+        </div>
+
+        <form action="/scrape" method="POST">
+            <button type="submit" class="scrape-btn">🔄 Refresh Feed</button>
+        </form>
+    </header>
+
+    <div class="container">
+        <ul class="news-list">
+            {% if articles %}
+                {% for article in articles %}
+                    <li class="news-item cat-{{ article.category }}">
+                        <img class="news-image" src="{{ article.image }}" alt="topic image thumbnail">
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span class="cat-badge {{ article.badge_class }}">{{ article.category_label }}</span>
+                            </div>
+                            <a href="{{ article.link }}" target="_blank">{{ article.title }}</a>
+                            <div class="news-snippet">
+                                📊 {{ article.snippet }}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <h2>No structured data streams detected...</h2>
+                    <p>Click the "Refresh Feed" button to deploy python scraping vectors onto HackerNews.</p>
+                </div>
+            {% endif %}
+        </ul>
+    </div>
+
+</body>
+</html>
